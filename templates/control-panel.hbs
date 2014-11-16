@@ -1,0 +1,21 @@
+<form class="control-panel-form">
+  <h2>{{ taskHeader }}</h2>
+  <p>{{ taskDescription }}</p>
+  <h3>{{ functionalityDescription }}</h3>
+  <input type="range" min="0" max="2000" name="{{ sliderType }}" class="slider-animation">
+  <h3>Animaation toistotapa (easing)</h3>
+  <label for="linear">
+    <input class="easing-radio" type="radio" name="easing" value="linear" id="linear" checked>
+    lineaarinen
+  </label>
+  <label for="easeIn">
+    <input class="easing-radio" type="radio" name="easing" value="easeInQuart" id="easeIn">
+    easeIn
+  </label>
+  <label for="easeOut">
+    <input class="easing-radio" type="radio" name="easing" value="easeOutQuart" id="easeOut">
+    easeOut
+  </label>
+
+  <button type="button">Vahvista vastaus ja siirry eteenpäin</button>
+</form>

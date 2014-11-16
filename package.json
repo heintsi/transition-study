@@ -1,0 +1,25 @@
+{
+  "name": "transition-online-survey",
+  "version": "0.0.1",
+  "description": "Online survey for transition preference.",
+  "main": "app.js",
+  "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "engines": {
+    "node": "0.10.x"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-handlebars": "^0.9.1",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-express-server": "^0.4.19",
+    "load-grunt-tasks": "^1.0.0",
+    "time-grunt": "^1.0.0"
+  },
+  "dependencies": {
+    "express": "^4.10.2"
+  }
+}
