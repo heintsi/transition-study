@@ -12,6 +12,19 @@ body {
   background-color: #404040;
   position: fixed;
   z-index: 90;
+  text-align: center;
+  line-height: 60px;
+}
+
+.state-progress {
+  display: inline-block;
+  width: 200px;
+  height: 40px;
+}
+
+.previous-state-btn,
+.next-state-btn {
+  display: inline-block;
 }
 
 .balance {
@@ -138,6 +151,19 @@ body {
   margin-bottom: 20px;
 }
 
+.slider-label {
+  vertical-align: top;
+}
+
+.image-collection {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 120px;
+  background-color: #440000;
+}
+
 h2 {
   font-size: 1.0em;
   font-weight: normal;
@@ -159,6 +185,11 @@ label {
   text-align: left;
   font-size: 0.8em;
   margin-left: 50px;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
 }
 
 p {
