@@ -18,7 +18,8 @@ $(document).ready(function() {
   function switchSurveyStateTo(stateName) {
     var stateIndex = _.findIndex(surveyStates, { name: stateName });
     surveyStates[stateIndex].render()
-    changeAnimationDurationsOnAdjust()
+    logAnimationDurationsOnAdjust()
+    logEasingOnChange()
     renderSurveyState()
     bindSurveyStateSwitchers()
     logActivity('state_switch')
@@ -64,7 +65,7 @@ $(document).ready(function() {
 
     function openImageModalOnClick() {
       var modalBgOverlay = $el.app().find('.image-modal-bg-overlay'),
-        imageModal = $el.app().find('.image-product__flying-thumbnail')
+        imageModal = $el.surveyContent().find('.image-product__flying-thumbnail')
       $el.surveyContent().find('.image-product__thumbnail').click(function (e) {
 
         logActivity('modal_click', 'open')
@@ -114,10 +115,39 @@ $(document).ready(function() {
       functionalityDescription: 'Animaation nopeus',
       sliderType: 'add'
     })
-    renderContentArea()
+    renderContentArea('experiment_insertion')
     addImageToCollectionOnClick()
 
     function addImageToCollectionOnClick() {
+      $el.surveyContent().find('.image-product__thumbnail').click(function () {
+        $el.surveyContent().find('.image-product__flying-thumbnail.remove-me').remove()
+        var $parent = $(this).closest('.image-product');
+        var $flyingThumbnail = $parent.find('.image-product__flying-thumbnail').first()
+        $parent.append($flyingThumbnail.clone())
+        $flyingThumbnail.show()
+        var $cart = $el.surveyContent().find('.image-collection')
+        var diffX = $cart.get(0).getBoundingClientRect().left - $flyingThumbnail.get(0).getBoundingClientRect().left + 20
+        var diffY = $cart.get(0).getBoundingClientRect().top - $flyingThumbnail.get(0).getBoundingClientRect().top + 100
+
+        logActivity('add_click')
+
+        $flyingThumbnail
+          .velocity('fadeIn', {
+            easing: 'easeOutQuart',
+            queue: false,
+            duration: duration()
+          })
+          .velocity({
+            translateX: diffX + 'px',
+            translateY: diffY + 'px'
+          }, {
+            easing: easing(),
+            queue: false,
+            duration: duration(),
+            complete: function() { $flyingThumbnail.addClass('remove-me') }
+          })
+
+      })
 
     }
   }
@@ -135,12 +165,18 @@ $(document).ready(function() {
   }
 
   function renderContentArea(templateName) {
-
+    $el.surveyContent().html(templatesObj[templateName]({
+      images: _.map(_.range(1,2), function(num) {
+        return {
+          imageSrc: 'images/img0' + num + '.jpg'
+        }
+      })
+    }))
   }
 
   function renderImageThumbnails() {
     var context = {
-      images: _.map(_.range(1,2), function(num) {
+      images: _.map(_.range(2,3), function(num) {
         return {
           imageSrc: 'images/img0' + num + '.jpg'
         }
@@ -149,10 +185,16 @@ $(document).ready(function() {
     $el.surveyContent().html(templatesObj['experiment_image-modal'](context))
   }
 
-  function changeAnimationDurationsOnAdjust() {
+  function logAnimationDurationsOnAdjust() {
     $el.controlPanel().find('.slider-animation').change(_.throttle(function() {
       logActivity('anim_change', duration())
     }, 200))
+  }
+
+  function logEasingOnChange() {
+    $el.controlPanel().find('.easing-radio').click(function() {
+      logActivity('easing_change', easing())
+    })
   }
 
   function logActivity(msg, value) {
@@ -160,7 +202,7 @@ $(document).ready(function() {
       timestamp: new Date().getTime(),
       state: getSurveyState(),
       msg: msg,
-      val: value
+      val: value || 'N/A'
     })
   }
 

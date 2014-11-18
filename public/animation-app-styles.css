@@ -1,7 +1,7 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: #e0e0e0;
+  background-color: #f0f0f0;
   color: #e0e0e0;
   font-family: Arial, sans-serif;
 }
@@ -160,8 +160,9 @@ body {
   right: 0;
   top: 0;
   bottom: 0;
-  width: 120px;
-  background-color: #440000;
+  width: 200px;
+  background-color: #e0e0e0;
+  border-left: 1px solid #c0c0c0;
 }
 
 h2 {
