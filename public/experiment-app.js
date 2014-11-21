@@ -120,6 +120,10 @@ $(document).ready(function() {
 
     function addImageToCollectionOnClick() {
       $el.surveyContent().find('.image-product__thumbnail').click(function () {
+        if (!allowInteraction()) {
+          return
+        }
+
         $el.surveyContent().find('.image-product__flying-thumbnail.remove-me').remove()
         var $parent = $(this).closest('.image-product');
         var $flyingThumbnail = $parent.find('.image-product__flying-thumbnail').first()
@@ -130,6 +134,8 @@ $(document).ready(function() {
         var diffY = $cart.get(0).getBoundingClientRect().top - $flyingThumbnail.get(0).getBoundingClientRect().top + 100
 
         logActivity('add_click')
+
+        disableInteraction()
 
         $flyingThumbnail
           .velocity('fadeIn', {
@@ -144,7 +150,7 @@ $(document).ready(function() {
             easing: easing(),
             queue: false,
             duration: duration(),
-            complete: function() { $flyingThumbnail.addClass('remove-me') }
+            complete: function() { $flyingThumbnail.addClass('remove-me'); enableInteraction() }
           })
 
       })
@@ -204,6 +210,20 @@ $(document).ready(function() {
       msg: msg,
       val: value || 'N/A'
     })
+  }
+
+  var _allowInteraction = true
+
+  function allowInteraction() {
+    return _allowInteraction
+  }
+
+  function disableInteraction() {
+    _allowInteraction = false
+  }
+
+  function enableInteraction() {
+    _allowInteraction = true
   }
 
   $el.surveyState().click(function() {
