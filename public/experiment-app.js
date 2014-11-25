@@ -47,7 +47,7 @@ $(document).ready(function() {
   var surveyStates = [
     { name: 'modalSurvey',        render: renderImageModalSurvey },
     { name: 'insertionSurvey',    render: renderInsertionSurvey },
-    { name: 'deletionSurvey',     render: renderDeletionSurvey },
+    { name: 'browseSurvey',       render: renderBrowseSurvey },
     { name: 'screenChangeSurvey', render: renderScreenChangeSurvey }
   ]
 
@@ -158,8 +158,63 @@ $(document).ready(function() {
     }
   }
 
-  function renderDeletionSurvey() {
+  function renderBrowseSurvey() {
+    renderControlPanel({
+      taskHeader: 'Kuvien selaaminen',
+      taskDescription: 'Selaa kuvia klikkaamalla nuolipainikkeita. Säädä animaatio sopivaksi.',
+      functionalityDescription: 'Animaation nopeus',
+      sliderType: 'browse'
+    })
+    $el.surveyContent().html(templatesObj['experiment_browse']({
+      startImgSrc: 'images/img02.jpg',
+      leftImgSrc: 'images/img01.jpg',
+      rightImgSrc: 'images/img03.jpg'
+    }))
+    changeImageOnClick()
 
+    function changeImageOnClick() {
+      $el.surveyContent().find('.browse-left').click(function() { changeCenterImage(true) })
+      $el.surveyContent().find('.browse-right').click(function () { changeCenterImage(false) })
+
+      function changeCenterImage(goLeft) {
+        if(!allowInteraction()) return
+
+        logActivity('browse ' + (goLeft? 'left' : 'right') + ' click')
+        disableInteraction()
+
+        var imageBoxToSwitchToClass = goLeft? 'image-box-left' : 'image-box-right',
+            imageBoxToReplaceClass = goLeft? 'image-box-right' : 'image-box-left'
+
+        $el.surveyContent().find('.' + imageBoxToSwitchToClass)
+          .velocity({
+            left: '0'
+          }, {
+            queue: false,
+            duration: duration(),
+            easing: easing(),
+            complete: function() {
+              $(this).removeClass(imageBoxToSwitchToClass).addClass('image-box-current').attr('style', '')
+
+            }
+          })
+
+        $el.surveyContent().find('.image-box-current')
+          .velocity({
+            left: goLeft? '480px' : '-480px'
+          }, {
+            queue: false,
+            duration: duration(),
+            easing: easing(),
+            complete: function() {
+              $(this).removeClass('image-box-current').addClass(imageBoxToReplaceClass).attr('style', '')
+              enableInteraction()
+            }
+          })
+
+        $el.surveyContent().find('.' + imageBoxToReplaceClass).removeClass(imageBoxToReplaceClass).addClass(imageBoxToSwitchToClass)
+
+      }
+    }
   }
 
   function renderScreenChangeSurvey() {

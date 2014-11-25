@@ -165,6 +165,47 @@ body {
   border-left: 1px solid #c0c0c0;
 }
 
+.image-box {
+  position: relative;
+  width: 480px;
+  height: 360px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.image-box img {
+  display: inline-block;
+}
+
+.image-box-left {
+  position: absolute;
+  top: 0;
+  left: -480px;
+}
+
+.image-box-right {
+  position: absolute;
+  top: 0;
+  left: 480px;
+}
+
+.image-box-current {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.browse-left,
+.browse-right {
+  display: inline-block;
+  width: 200px;
+  text-align: center;
+  color: #202020;
+  padding: 1em 2em;
+  background-color: #e0e0e0;
+  cursor: pointer;
+}
+
 h2 {
   font-size: 1.0em;
   font-weight: normal;
