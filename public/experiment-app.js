@@ -110,17 +110,11 @@ $(document).ready(function() {
     openImageModalOnClick()
 
     function openImageModalOnClick() {
-      var modalBgOverlay = $el.app().find('.image-modal-bg-overlay'),
-        imageModal = $el.surveyContent().find('.image-product__flying-thumbnail')
+      var imageModal = $el.surveyContent().find('.image-product__flying-thumbnail')
       $el.surveyContent().find('.image-product__thumbnail').click(function (e) {
-
+        if(!allowInteraction()) return
         logActivity('modal_click', 'open')
-
-        modalBgOverlay.velocity('fadeIn', {
-          queue: false,
-          duration: duration(),
-          easing: easing()
-        })
+        disableInteraction()
         imageModal.show()
           .velocity({
             scale: 4,
@@ -129,17 +123,15 @@ $(document).ready(function() {
             queue: false,
             display: 'block',
             duration: duration(),
-            easing: easing()
+            easing: easing(),
+            complete: function() { enableInteraction() }
           })
 
       })
       imageModal.click(function () {
+        if(!allowInteraction()) return
         logActivity('modal_click', 'close')
-        modalBgOverlay.velocity('fadeOut', {
-          queue: false,
-          duration: duration(),
-          easing: easing()
-        })
+        disableInteraction()
         imageModal
           .velocity({
             scale: 1,
@@ -148,7 +140,8 @@ $(document).ready(function() {
             display: 'none',
             queue: false,
             duration: duration(),
-            easing: easing()
+            easing: easing(),
+            complete: function() { enableInteraction() }
           })
       })
     }
