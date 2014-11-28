@@ -179,13 +179,15 @@ $(document).ready(function() {
         var diffX = $cart.get(0).getBoundingClientRect().left - $flyingThumbnail.get(0).getBoundingClientRect().left + 20
         var diffY = $cart.get(0).getBoundingClientRect().top - $flyingThumbnail.get(0).getBoundingClientRect().top + 100
 
+        var $addedCount = $cart.find('.added-count')
+
         logActivity('add_click')
 
         disableInteraction()
 
         $flyingThumbnail
-          .velocity('fadeIn', {
-            easing: 'easeOutQuart',
+          .velocity('fadeOut', {
+            easing: 'easeInQuart',
             queue: false,
             duration: duration()
           })
@@ -196,7 +198,11 @@ $(document).ready(function() {
             easing: easing(),
             queue: false,
             duration: duration(),
-            complete: function() { $flyingThumbnail.addClass('remove-me'); enableInteraction() }
+            complete: function() {
+              $flyingThumbnail.addClass('remove-me')
+              var count = Number($addedCount.text())
+              $addedCount.text(count+1)
+              enableInteraction() }
           })
 
       })

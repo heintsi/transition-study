@@ -179,6 +179,12 @@ body {
   width: 200px;
   background-color: #e0e0e0;
   border-left: 1px solid #c0c0c0;
+  padding-top: 120px;
+}
+
+.added-count {
+  color: #404040;
+  font-size: 3em;
 }
 
 .image-box {
