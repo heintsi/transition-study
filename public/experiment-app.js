@@ -8,6 +8,12 @@ $(document).ready(function() {
 
   var maxDuration = 2000
 
+  var easingValues = {
+    linear: 'linear',
+    easeIn: 'easeInQuart',
+    easeOut: 'easeOutQuart'
+  }
+
   var activityLog = []
 
   var $el = {
@@ -19,7 +25,7 @@ $(document).ready(function() {
 
   function switchSurveyStateTo(stateName) {
     var stateIndex = _.findIndex(surveyStates, { name: stateName });
-    surveyStates[stateIndex].render()
+    surveyStates[stateIndex].render(surveyStates[stateIndex].animationSettings)
     logAnimationDurationsOnAdjust()
     logEasingOnChange()
     renderSurveyState()
@@ -27,7 +33,11 @@ $(document).ready(function() {
     logActivity('state_switch')
 
     function renderSurveyState() {
-      $el.surveyState().html(templatesObj['survey-state']({ noPrevious: stateIndex == 0, currentStateNumber: stateIndex + 1, totalStatesCount: surveyStates.length }))
+      $el.surveyState().html(templatesObj['survey-state']({
+        noPrevious: stateIndex == 0,
+        currentStateNumber: stateIndex + 1,
+        totalStatesCount: surveyStates.length
+      }))
       $el.surveyState().data('stateId', stateName)
     }
 
@@ -47,20 +57,49 @@ $(document).ready(function() {
   function getNextSurveyStateName()     { return surveyStates[Math.min(surveyStates.length - 1, _.findIndex(surveyStates, { name: getSurveyState() }) + 1)].name }
 
   var surveyStates = [
-    { name: 'modalSurvey',        render: renderImageModalSurvey },
-    { name: 'insertionSurvey',    render: renderInsertionSurvey },
-    { name: 'browseSurvey',       render: renderBrowseSurvey },
-    { name: 'screenChangeSurvey', render: renderScreenChangeSurvey }
+    {
+      name: 'modalSurvey',
+      render: renderImageModalSurvey,
+      animationSettings: {
+        duration: maxDuration/2,
+        easing: easingValues.linear
+      }
+    },
+    {
+      name: 'insertionSurvey',
+      render: renderInsertionSurvey,
+      animationSettings: {
+        duration: maxDuration/2,
+        easing: easingValues.linear
+      }
+
+    },
+    {
+      name: 'browseSurvey',
+      render: renderBrowseSurvey,
+      animationSettings: {
+        duration: maxDuration/2,
+        easing: easingValues.linear
+      }
+
+    }
+    //{ name: 'screenChangeSurvey', render: renderScreenChangeSurvey }
   ]
 
   switchSurveyStateTo('modalSurvey')
 
-  function renderImageModalSurvey() {
+  function renderImageModalSurvey(animationSettings) {
     renderControlPanel({
       taskHeader: 'Kuvan avaaminen suureksi',
       taskDescription: 'Klikkaa oikealla olevaa kuvaa, jolloin kuva avautuu suuremmaksi. Säädä animaatio sopivaksi.',
       functionalityDescription: 'Animaation nopeus',
       sliderType: 'modal',
+      startingSpeed: maxDuration - animationSettings.duration,
+      startingEasing: {
+        linear: animationSettings.easing === easingValues.linear,
+        easeIn: animationSettings.easing === easingValues.easeIn,
+        easeOut: animationSettings.easing === easingValues.easeOut
+      },
       maxDuration: maxDuration
     })
     renderImageThumbnails()
@@ -111,12 +150,18 @@ $(document).ready(function() {
     }
   }
 
-  function renderInsertionSurvey() {
+  function renderInsertionSurvey(animationSettings) {
     renderControlPanel({
       taskHeader: 'Kuvan lisääminen kokoelmaan',
       taskDescription: 'Klikkaa oikealla olevaa kuvaa, jolloin kuva lisätään kokoelmaan. Säädä animaatio sopivaksi.',
       functionalityDescription: 'Animaation nopeus',
       sliderType: 'add',
+      startingSpeed: maxDuration - animationSettings.duration,
+      startingEasing: {
+        linear: animationSettings.easing === easingValues.linear,
+        easeIn: animationSettings.easing === easingValues.easeIn,
+        easeOut: animationSettings.easing === easingValues.easeOut
+      },
       maxDuration: maxDuration
     })
     renderContentArea('experiment_insertion')
@@ -162,12 +207,18 @@ $(document).ready(function() {
     }
   }
 
-  function renderBrowseSurvey() {
+  function renderBrowseSurvey(animationSettings) {
     renderControlPanel({
       taskHeader: 'Kuvien selaaminen',
       taskDescription: 'Selaa kuvia klikkaamalla nuolipainikkeita. Säädä animaatio sopivaksi.',
       functionalityDescription: 'Animaation nopeus',
       sliderType: 'browse',
+      startingSpeed: maxDuration - animationSettings.duration,
+      startingEasing: {
+        linear: animationSettings.easing === easingValues.linear,
+        easeIn: animationSettings.easing === easingValues.easeIn,
+        easeOut: animationSettings.easing === easingValues.easeOut
+      },
       maxDuration: maxDuration
     })
     $el.surveyContent().html(templatesObj['experiment_browse']({
@@ -227,6 +278,11 @@ $(document).ready(function() {
   }
 
   function renderControlPanel(context) {
+    context = _.assign({}, context, {
+      easingLinear: easingValues.linear,
+      easingEaseIn: easingValues.easeIn,
+      easingEaseOut: easingValues.easeOut
+    })
     $el.controlPanel().html(templatesObj['control-panel'](context))
   }
 
@@ -253,12 +309,14 @@ $(document).ready(function() {
 
   function logAnimationDurationsOnAdjust() {
     $el.controlPanel().find('.slider-animation').change(_.throttle(function() {
+      surveyStates[_.findIndex(surveyStates, { name: getSurveyState() })].animationSettings.duration = duration()
       logActivity('anim_change', duration())
     }, 200))
   }
 
   function logEasingOnChange() {
     $el.controlPanel().find('.easing-radio').click(function() {
+      surveyStates[_.findIndex(surveyStates, { name: getSurveyState() })].animationSettings.easing = easing()
       logActivity('easing_change', easing())
     })
   }

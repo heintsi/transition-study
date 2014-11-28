@@ -5,20 +5,20 @@
     <h3>{{ functionalityDescription }}</h3>
     <span class="slider-label-slow">Hidas</span>
     <span class="slider-label-fast">Nopea</span>
-    <input type="range" min="0" max="{{ maxDuration }}" name="{{ sliderType }}" class="slider-animation">
+    <input type="range" min="0" max="{{ maxDuration }}" name="{{ sliderType }}" value="{{ startingSpeed }}" class="slider-animation">
   </div>
   <div class="easing-control">
     <h3>Animaation toistotapa (easing)</h3>
     <label for="linear">
-      <input class="easing-radio" type="radio" name="easing" value="linear" id="linear" checked>
+      <input class="easing-radio" type="radio" name="easing" value="{{ easingLinear }}" id="linear" {{#if startingEasing.linear }}checked{{/if}}>
       muuttumaton nopeus alusta loppuun
     </label>
     <label for="easeIn">
-      <input class="easing-radio" type="radio" name="easing" value="easeInQuart" id="easeIn">
+      <input class="easing-radio" type="radio" name="easing" value="{{ easingEaseIn }}" id="easeIn" {{#if startingEasing.easeIn }}checked{{/if}}>
       nopeuta loppua kohden
     </label>
     <label for="easeOut">
-      <input class="easing-radio" type="radio" name="easing" value="easeOutQuart" id="easeOut">
+      <input class="easing-radio" type="radio" name="easing" value="{{ easingEaseOut }}" id="easeOut" {{#if startingEasing.easeOut }}checked{{/if}}>
       hidasta loppua kohden
     </label>
   </div>
