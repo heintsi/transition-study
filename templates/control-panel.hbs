@@ -1,21 +1,25 @@
 <form class="control-panel-form">
   <h2>{{ taskHeader }}</h2>
   <p>{{ taskDescription }}</p>
-  <h3>{{ functionalityDescription }}</h3>
-  <span class="slider-label">Hidas</span>
-  <input type="range" min="0" max="2000" name="{{ sliderType }}" class="slider-animation">
-  <span class="slider-label">Nopea</span>
-  <h3>Animaation toistotapa (easing)</h3>
-  <label for="linear">
-    <input class="easing-radio" type="radio" name="easing" value="linear" id="linear" checked>
-    lineaarinen
-  </label>
-  <label for="easeIn">
-    <input class="easing-radio" type="radio" name="easing" value="easeInQuart" id="easeIn">
-    easeIn
-  </label>
-  <label for="easeOut">
-    <input class="easing-radio" type="radio" name="easing" value="easeOutQuart" id="easeOut">
-    easeOut
-  </label>
+  <div class="speed-control">
+    <h3>{{ functionalityDescription }}</h3>
+    <span class="slider-label-slow">Hidas</span>
+    <span class="slider-label-fast">Nopea</span>
+    <input type="range" min="0" max="2000" name="{{ sliderType }}" class="slider-animation">
+  </div>
+  <div class="easing-control">
+    <h3>Animaation toistotapa (easing)</h3>
+    <label for="linear">
+      <input class="easing-radio" type="radio" name="easing" value="linear" id="linear" checked>
+      muuttumaton nopeus alusta loppuun
+    </label>
+    <label for="easeIn">
+      <input class="easing-radio" type="radio" name="easing" value="easeInQuart" id="easeIn">
+      nopeuta loppua kohden
+    </label>
+    <label for="easeOut">
+      <input class="easing-radio" type="radio" name="easing" value="easeOutQuart" id="easeOut">
+      hidasta loppua kohden
+    </label>
+  </div>
 </form>

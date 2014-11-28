@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>Animaatiokysely</title>
+  <style type="text/css">
+    body {
+      font-family: sans-serif;
+      padding: 0;
+      margin: 3em;
+      color: #303030;
+    }
+
+    button {
+      font-size: 1.0em;
+      padding: 1em;
+      color: #303030;
+      cursor: pointer;
+    }
+
+    h1 {
+      color: #505050;
+      font-size: 1.4em;
+    }
+
+    p {
+      color: #303030;
+    }
+
+    ul, ol {
+      text-align: left;
+      margin-left: 200px;
+    }
+
+    .survey-instructions {
+      text-align: center;
+      width: 80%;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .modern-browser-note {
+      padding: 1em;
+      background-color: #4063a9;
+      font-size: 0.9em;
+      line-height: 1.4em;
+      color: #f0f0f0;
+      margin: 3em 0;
+    }
+
+  </style>
+</head>
+<body>
+<div class="survey-instructions">
+  <h1>Animaatiokysely</h1>
+  <p>Tässä kyselyssä selvitetään animaatioiden käyttöön liittyviä mieltymyksiä verkkosivuilla.</p>
+
+  <p>Kysely koostuu kolmesta (3) osiosta. Jokainen osio sisältää klikkaamalla toistettavan animaation sekä mahdollisuuden säätää kahta (2) animaation ominaisuutta: </p>
+  <ul>
+    <li>Animaation nopeus</li>
+    <li>Animaation toistotapa (eng. "<a href="http://easings.net/">easing</a>" tai "<a href="http://en.wikipedia.org/wiki/Inbetweening">inbetweening</a>")</li>
+  </ul>
+
+  <p>Osioon vastataan seuraavasti: </p>
+  <ol>
+    <li>säädä animaation nopeus sopivaksi</li>
+    <li>säädä animaation toistotapa sopivaksi</li>
+    <li>klikkaa "Seuraava" ikkunan yläreunassa</li>
+  </ol>
+
+  <p class="modern-browser-note">Kysely sisältää animaatioita, jotka eivät ole tuettuja kaikilla selaimilla. Vastaathan kyselyyn käyttäen tuoretta versiota joko Google Chromesta, Firefoxista tai Safarista.</p>
+
+  <button type="button" class="start-survey-btn">Aloita kyselyyn vastaaminen</button>
+</div>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.min.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/velocity/1.1.0/velocity.min.js"></script>
+  <script src="/lib/jquery-ui.min.js"></script>
+  <script type="application/javascript">
+    $(document).ready(function () {
+      $('.start-survey-btn').click(function() {
+        window.location = 'experiment.html'
+      })
+    })
+  </script>
+</body>
+</html>

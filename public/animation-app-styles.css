@@ -25,6 +25,7 @@ body {
 .previous-state-btn,
 .next-state-btn {
   display: inline-block;
+  padding: 6px 10px;
 }
 
 .balance {
@@ -52,7 +53,8 @@ body {
 .survey-content {
   width: 50%;
   padding: 10px;
-  margin: 0 auto;
+  margin: 0;
+  margin-left: 320px;
   text-align: center;
   padding-top: 80px;
 }
@@ -146,13 +148,27 @@ body {
   text-align: center;
 }
 
-.slider-animation {
-  width: 190px;
-  margin-bottom: 20px;
+.control-panel h3 {
+  font-size: 1em;
 }
 
-.slider-label {
-  vertical-align: top;
+.control-panel .speed-control,
+.control-panel .easing-control {
+  background-color: #202020;
+  padding: 1em;
+  margin: 1em;
+}
+
+.slider-animation {
+  width: 100%;
+}
+
+.slider-label-slow {
+  float: left;
+}
+
+.slider-label-fast {
+  float: right;
 }
 
 .image-collection {
@@ -201,7 +217,7 @@ body {
   width: 200px;
   text-align: center;
   color: #202020;
-  padding: 1em 2em;
+  padding: 10px 20px;
   background-color: #e0e0e0;
   cursor: pointer;
 }
@@ -226,7 +242,7 @@ label {
   display: block;
   text-align: left;
   font-size: 0.8em;
-  margin-left: 50px;
+  line-height: 2em;
 }
 
 ul {

@@ -77,7 +77,7 @@ $(document).ready(function() {
         })
         imageModal.show()
           .velocity({
-            scale: 5,
+            scale: 4,
             top: '180px'
           }, {
             queue: false,
@@ -179,7 +179,7 @@ $(document).ready(function() {
       function changeCenterImage(goLeft) {
         if(!allowInteraction()) return
 
-        logActivity('browse ' + (goLeft? 'left' : 'right') + ' click')
+        logActivity('browse_' + (goLeft? 'left' : 'right'))
         disableInteraction()
 
         var imageBoxToSwitchToClass = goLeft? 'image-box-left' : 'image-box-right',
