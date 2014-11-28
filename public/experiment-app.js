@@ -6,6 +6,8 @@ $(document).ready(function() {
     return $slider.attr('max') - $slider.val()
   }
 
+  var maxDuration = 2000
+
   var activityLog = []
 
   var $el = {
@@ -58,7 +60,8 @@ $(document).ready(function() {
       taskHeader: 'Kuvan avaaminen suureksi',
       taskDescription: 'Klikkaa oikealla olevaa kuvaa, jolloin kuva avautuu suuremmaksi. Säädä animaatio sopivaksi.',
       functionalityDescription: 'Animaation nopeus',
-      sliderType: 'modal'
+      sliderType: 'modal',
+      maxDuration: maxDuration
     })
     renderImageThumbnails()
     openImageModalOnClick()
@@ -113,7 +116,8 @@ $(document).ready(function() {
       taskHeader: 'Kuvan lisääminen kokoelmaan',
       taskDescription: 'Klikkaa oikealla olevaa kuvaa, jolloin kuva lisätään kokoelmaan. Säädä animaatio sopivaksi.',
       functionalityDescription: 'Animaation nopeus',
-      sliderType: 'add'
+      sliderType: 'add',
+      maxDuration: maxDuration
     })
     renderContentArea('experiment_insertion')
     addImageToCollectionOnClick()
@@ -163,7 +167,8 @@ $(document).ready(function() {
       taskHeader: 'Kuvien selaaminen',
       taskDescription: 'Selaa kuvia klikkaamalla nuolipainikkeita. Säädä animaatio sopivaksi.',
       functionalityDescription: 'Animaation nopeus',
-      sliderType: 'browse'
+      sliderType: 'browse',
+      maxDuration: maxDuration
     })
     $el.surveyContent().html(templatesObj['experiment_browse']({
       startImgSrc: 'images/img02.jpg',
