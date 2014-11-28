@@ -106,7 +106,11 @@ $(document).ready(function() {
       },
       maxDuration: maxDuration
     })
-    renderImageThumbnails()
+    $el.surveyContent().html(templatesObj['experiment_image-modal']({
+      images: [{
+        imageSrc: 'images/img01.jpg'
+        }]
+    }))
     openImageModalOnClick()
 
     function openImageModalOnClick() {
@@ -161,7 +165,12 @@ $(document).ready(function() {
       },
       maxDuration: maxDuration
     })
-    renderContentArea('experiment_insertion')
+    $el.surveyContent().html(templatesObj['experiment_insertion']({
+      images: [{
+        imageSrc: 'images/img02.jpg'
+      }]
+    }))
+
     addImageToCollectionOnClick()
 
     function addImageToCollectionOnClick() {
@@ -293,27 +302,6 @@ $(document).ready(function() {
       easingEaseOut: easingValues.easeOut
     })
     $el.controlPanel().html(templatesObj['control-panel'](context))
-  }
-
-  function renderContentArea(templateName) {
-    $el.surveyContent().html(templatesObj[templateName]({
-      images: _.map(_.range(1,2), function(num) {
-        return {
-          imageSrc: 'images/img0' + num + '.jpg'
-        }
-      })
-    }))
-  }
-
-  function renderImageThumbnails() {
-    var context = {
-      images: _.map(_.range(2,3), function(num) {
-        return {
-          imageSrc: 'images/img0' + num + '.jpg'
-        }
-      })
-    }
-    $el.surveyContent().html(templatesObj['experiment_image-modal'](context))
   }
 
   function logAnimationDurationsOnAdjust() {
