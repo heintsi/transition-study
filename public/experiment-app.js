@@ -25,7 +25,7 @@ $(document).ready(function() {
     logActivity('state_switch')
 
     function renderSurveyState() {
-      $el.surveyState().html(templatesObj['survey-state']({ currentStateNumber: stateIndex + 1, totalStatesCount: surveyStates.length }))
+      $el.surveyState().html(templatesObj['survey-state']({ noPrevious: stateIndex == 0, currentStateNumber: stateIndex + 1, totalStatesCount: surveyStates.length }))
       $el.surveyState().data('stateId', stateName)
     }
 
