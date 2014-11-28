@@ -95,7 +95,7 @@ $(document).ready(function() {
   function renderImageModalSurvey(animationSettings) {
     renderControlPanel({
       taskHeader: 'Kuvan avaaminen suureksi',
-      taskDescription: 'Klikkaa oikealla olevaa kuvaa, jolloin kuva avautuu suuremmaksi. Säädä animaatio sopivaksi.',
+      taskDescription: 'Klikkaa oikealla olevaa kuvaa, jolloin kuva avautuu suuremmaksi. Säädä animaatio mieluisaksi.',
       functionalityDescription: 'Animaation nopeus',
       sliderType: 'modal',
       startingSpeed: maxDuration - animationSettings.duration,
@@ -122,7 +122,7 @@ $(document).ready(function() {
         imageModal.show()
           .velocity({
             scale: 4,
-            top: '180px'
+            top: '170px'
           }, {
             queue: false,
             display: 'block',
@@ -154,7 +154,7 @@ $(document).ready(function() {
   function renderInsertionSurvey(animationSettings) {
     renderControlPanel({
       taskHeader: 'Kuvan lisääminen kokoelmaan',
-      taskDescription: 'Klikkaa oikealla olevaa kuvaa, jolloin kuva lisätään kokoelmaan. Säädä animaatio sopivaksi.',
+      taskDescription: 'Klikkaa oikealla olevaa kuvaa, jolloin kuva "lisätään kokoelmaan". Säädä animaatio mieluisaksi.',
       functionalityDescription: 'Animaation nopeus',
       sliderType: 'add',
       startingSpeed: maxDuration - animationSettings.duration,
@@ -222,7 +222,7 @@ $(document).ready(function() {
   function renderBrowseSurvey(animationSettings) {
     renderControlPanel({
       taskHeader: 'Kuvien selaaminen',
-      taskDescription: 'Selaa kuvia klikkaamalla nuolipainikkeita. Säädä animaatio sopivaksi.',
+      taskDescription: 'Selaa kuvia klikkaamalla nuolipainikkeita. Säädä animaatio mieluisaksi.',
       functionalityDescription: 'Animaation nopeus',
       sliderType: 'browse',
       startingSpeed: maxDuration - animationSettings.duration,
