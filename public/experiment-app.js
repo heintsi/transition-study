@@ -35,6 +35,7 @@ $(document).ready(function() {
     function renderSurveyState() {
       $el.surveyState().html(templatesObj['survey-state']({
         noPrevious: stateIndex == 0,
+        noNext: stateIndex === surveyStates.length - 1,
         currentStateNumber: stateIndex + 1,
         totalStatesCount: surveyStates.length
       }))
@@ -51,10 +52,10 @@ $(document).ready(function() {
     }
   }
 
-  function getSurveyState() { return $el.surveyState().data('stateId') }
+  function getCurrentSurveyStateName() { return $el.surveyState().data('stateId') }
 
-  function getPreviousSurveyStateName() { return surveyStates[Math.max(0, _.findIndex(surveyStates, { name: getSurveyState() }) - 1)].name }
-  function getNextSurveyStateName()     { return surveyStates[Math.min(surveyStates.length - 1, _.findIndex(surveyStates, { name: getSurveyState() }) + 1)].name }
+  function getPreviousSurveyStateName() { return surveyStates[Math.max(0, _.findIndex(surveyStates, { name: getCurrentSurveyStateName() }) - 1)].name }
+  function getNextSurveyStateName()     { return surveyStates[Math.min(surveyStates.length - 1, _.findIndex(surveyStates, { name: getCurrentSurveyStateName() }) + 1)].name }
 
   var surveyStates = [
     {
@@ -72,7 +73,6 @@ $(document).ready(function() {
         duration: maxDuration/2,
         easing: easingValues.linear
       }
-
     },
     {
       name: 'browseSurvey',
@@ -81,7 +81,11 @@ $(document).ready(function() {
         duration: maxDuration/2,
         easing: easingValues.linear
       }
-
+    },
+    {
+      name: 'endSurvey',
+      render: renderEndSurvey,
+      animationSettings: {}
     }
     //{ name: 'screenChangeSurvey', render: renderScreenChangeSurvey }
   ]
@@ -277,6 +281,12 @@ $(document).ready(function() {
 
   }
 
+  function renderEndSurvey() {
+    $el.controlPanel().html('')
+    $el.surveyContent().html(templatesObj['end'])
+    $el.surveyContent().find('.submit-survey-btn').click(saveActivities)
+  }
+
   function renderControlPanel(context) {
     context = _.assign({}, context, {
       easingLinear: easingValues.linear,
@@ -309,14 +319,14 @@ $(document).ready(function() {
 
   function logAnimationDurationsOnAdjust() {
     $el.controlPanel().find('.slider-animation').change(_.throttle(function() {
-      surveyStates[_.findIndex(surveyStates, { name: getSurveyState() })].animationSettings.duration = duration()
+      surveyStates[_.findIndex(surveyStates, { name: getCurrentSurveyStateName() })].animationSettings.duration = duration()
       logActivity('anim_change', duration())
     }, 200))
   }
 
   function logEasingOnChange() {
     $el.controlPanel().find('.easing-radio').click(function() {
-      surveyStates[_.findIndex(surveyStates, { name: getSurveyState() })].animationSettings.easing = easing()
+      surveyStates[_.findIndex(surveyStates, { name: getCurrentSurveyStateName() })].animationSettings.easing = easing()
       logActivity('easing_change', easing())
     })
   }
@@ -324,7 +334,7 @@ $(document).ready(function() {
   function logActivity(msg, value) {
     activityLog.push({
       timestamp: new Date().getTime(),
-      state: getSurveyState(),
+      state: getCurrentSurveyStateName(),
       msg: msg,
       val: value || 'N/A'
     })
@@ -348,5 +358,10 @@ $(document).ready(function() {
     console.log('LOG ENTRIES:')
     _.forEach(activityLog, function(entry) { console.log(entry) })
   })
+
+  function saveActivities() {
+    $el.app().find('textarea.pic-scale').val(JSON.stringify(activityLog))
+    $el.app().find('.forms-form').submit()
+  }
 
   })
