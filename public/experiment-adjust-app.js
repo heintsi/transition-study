@@ -196,7 +196,7 @@ $(document).ready(function() {
 
         $flyingThumbnail
           .velocity('fadeOut', {
-            easing: 'easeInQuart',
+            easing: easing(),
             queue: false,
             duration: duration()
           })
