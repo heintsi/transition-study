@@ -347,7 +347,8 @@ $(document).ready(function() {
   })
 
   function saveActivities() {
-    $el.app().find('textarea.pic-scale').val(JSON.stringify(activityLog))
+    $el.app().find('textarea.activity-log-input').val(JSON.stringify(activityLog))
+    $el.app().find('textarea.comment-input').val($el.surveyContent().find('.end-thoughts').val())
     $el.app().find('.forms-form').submit()
   }
 

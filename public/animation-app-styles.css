@@ -286,10 +286,19 @@ span {
   color: #404040;
 }
 
+.survey-end label {
+  text-align: center;
+}
+
 .submit-survey-btn {
   margin-top: 2em;
   font-size: 1.0em;
   padding: 1em;
   color: #303030;
   cursor: pointer;
+}
+
+.end-thoughts {
+  display: block;
+  margin: 10px auto;
 }
