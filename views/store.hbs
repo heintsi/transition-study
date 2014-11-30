@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>Kuvakauppa</title>
+  <link rel="stylesheet" href="/experiment-stores/stores.css">
+</head>
+<body>
+  <div class="header">
+    <h1>Kuvakauppa Yksi</h1>
+    <div class="cart">
+      <span class="counter">0</span>
+      <div class="storage"></div>
+    </div>
+  </div>
+  <div class="navigation">
+
+  </div>
+  <div class="catalog">
+    <ul class="first-page">
+      {{#each imagesPageOne }}
+        <li class="image-product">
+          <img class="image-product__thumbnail" src="{{ imageSrc }}" width="160" height="120">
+          <img class="image-product__flying-thumbnail" src="{{ imageSrc }}" width="160" height="120">
+          <div class="image-overlay">
+            <button class="add-to-cart-btn" type="button">Lisää koriin</button>
+            <button class="view-btn" type="button">Suurenna</button>
+          </div>
+        </li>
+      {{/each}}
+    </ul>
+    <ul class="second-page">
+      {{#each imagesPageTwo }}
+        <li class="image-product">
+          <img class="image-product__thumbnail" src="{{ imageSrc }}" width="160" height="120">
+          <img class="image-product__flying-thumbnail" src="{{ imageSrc }}" width="160" height="120">
+          <div class="image-overlay">
+            <button class="add-to-cart-btn" type="button">Lisää koriin</button>
+            <button class="view-btn" type="button">Suurenna</button>
+          </div>
+        </li>
+      {{/each}}
+    </ul>
+  </div>
+  <script src="/lib/jquery-2.1.1.min.js"></script>
+  <script src="/lib/lodash.min.js"></script>
+  <script src="/lib/handlebars.runtime.min.js"></script>
+  <script src="/lib/velocity.min.js"></script>
+  <script src="/lib/jquery-ui.min.js"></script>
+  <script src="/templates.js"></script>
+  <script src="/experiment-stores/stores.js"></script>
+</body>
+</html>
