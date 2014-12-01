@@ -83,6 +83,14 @@ $(document).ready(function() {
       }
     },
     {
+      name: 'deletionSurvey',
+      render: renderDeletionSurvey,
+      animationSettings: {
+        duration: maxDuration/2,
+        easing: easingValues.linear
+      }
+    },
+    {
       name: 'endSurvey',
       render: renderEndSurvey,
       animationSettings: {}
@@ -286,6 +294,57 @@ $(document).ready(function() {
   }
 
   function renderScreenChangeSurvey() {
+
+  }
+
+  function renderDeletionSurvey(animationSettings) {
+    renderControlPanel({
+      taskHeader: 'Kuvan poistaminen kokoelmasta',
+      taskDescription: 'Klikkaa oikealla olevaa kuvaa, jolloin kuva poistetaan listasta. Säädä animaatio mieluisaksi.',
+      functionalityDescription: 'Animaation nopeus',
+      sliderType: 'delete',
+      startingSpeed: maxDuration - animationSettings.duration,
+      startingEasing: {
+        linear: animationSettings.easing === easingValues.linear,
+        easeIn: animationSettings.easing === easingValues.easeIn,
+        easeOut: animationSettings.easing === easingValues.easeOut
+      },
+      maxDuration: maxDuration
+    })
+    renderStartingState()
+    deleteImageOnClick()
+
+    function renderStartingState() {
+      $el.surveyContent().html(templatesObj['experiment_deletion']({
+        images: [
+          {imageSrc: 'images/img01.jpg'},
+          {imageSrc: 'images/img02.jpg'},
+          {imageSrc: 'images/img03.jpg'}
+        ]
+      }))
+    }
+
+    function deleteImageOnClick() {
+      $el.surveyContent().find('.image-product').click(function() {
+
+        $(this)
+          .velocity({
+            opacity: 0
+          }, {
+            queue: false,
+            duration: duration(),
+            easing: easing(),
+            complete: function() { showAllIfHidden() }
+          })
+
+        function showAllIfHidden() {
+          var imgs = $el.surveyContent().find('.image-product')
+          if (_.every(imgs, function(img) { console.log($(img).css('opacity')); return $(img).css('opacity') === '0' })) {
+            imgs.css('opacity', 1)
+          }
+        }
+      })
+    }
 
   }
 
